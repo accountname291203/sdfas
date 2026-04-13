@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="/cfg.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/style/all.css" />
+    <script src="/script/theme.js"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-PPE9RTDYDG"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-PPE9RTDYDG");
+    </script>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-color: var(--bg);
+        overflow: hidden;
+        position: relative;
+        font-family: sans-serif;
+      }
+      #vanta-bg {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        opacity: 0;
+        transition: opacity 0.6s ease;
+      }
+      .initial-overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: #000000;
+        z-index: 100;
+        transition: opacity 0.6s ease-out;
+        opacity: 1;
+        visibility: visible;
+      }
+      .initial-overlay.fade-out {
+        opacity: 0;
+        pointer-events: none;
+        visibility: hidden !important;
+      }
+
+      .vanta-overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(var(--bc), 0.7);
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .header-info-container,
+      .footer-info-container,
+      .v-char,
+      .a-char,
+      .p-char,
+      .o-char,
+      .r-char,
+      .v4-text,
+      .random-text-container {
+        visibility: hidden;
+      }
+
+      .info-visible,
+      .visible,
+      .word-visible {
+        visibility: visible !important;
+      }
+
+      .header-info-container,
+      .footer-info-container {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        opacity: 0;
+        text-align: center;
+        z-index: 50;
+        transition: opacity 0.3s ease 0.5s, transform 0.3s ease 0.5s;
+      }
+      .header-info-container {
+        top: 20px;
+        transform: translateY(-5px);
+      }
+      .footer-info-container {
+        bottom: 20px;
+        transform: translateY(5px);
+      }
+
+      .info-visible {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+
+      .content-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        z-index: 2;
+      }
+      h1 {
+        margin: 0;
+        font-size: 100px;
+        font-weight: 900;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+      }
+      .vapor-text {
+        display: inline-block;
+        perspective: 1000px;
+        transform-style: preserve-3d;
+        transition: transform 0.6s ease;
+      }
+      .vapor-text.flipped-3d {
+        transform: rotateY(180deg);
+      }
+      .vapor-text > span {
+        color: var(--primary);
+        transition: 0.5s ease;
+        display: inline-block;
+        cursor: text;
+      }
+      .v-char,
+      .a-char,
+      .p-char,
+      .o-char,
+      .r-char {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      .v-char {
+        margin-right: -0.17em;
+      }
+      .v-char.visible {
+        opacity: 0.14;
+        transform: scale(1);
+      }
+      .a-char.visible {
+        opacity: 0.3;
+        transform: scale(1);
+      }
+      .p-char.visible {
+        opacity: 0.5;
+        transform: scale(1);
+      }
+      .o-char.visible {
+        opacity: 0.7;
+        transform: scale(1);
+      }
+      .r-char.visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .v4-text {
+        color: rgba(var(--cb), 0.7);
+        opacity: 0;
+        transition: 0.6s ease;
+        letter-spacing: -5px;
+        display: inline-block;
+        transform: scale(0.9);
+        margin-left: 20px;
+      }
+      .v4-text.visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .header-info-text,
+      .footer-info-text {
+        font-size: 24px;
+        color: rgba(var(--cb), 0.65);
+        font-weight: 400;
+        margin: 0;
+        display: inline-block;
+      }
+
+      .footer-info-text > span {
+        position: relative;
+        display: inline-block;
+      }
+
+      .footer-tooltip {
+        position: absolute;
+        bottom: 120%;
+        left: 50%;
+        transform: translateX(-50%) translateY(0px);
+        background: rgba(var(--cb), 0.25);
+        backdrop-filter: blur(8px);
+        color: #fff;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 16px;
+        line-height: 1.4;
+        white-space: normal;
+        width: max-content;
+        max-width: 270px;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+        z-index: 100;
+        border: 1px solid rgba(var(--cb), 0.05);
+        text-align: left;
+      }
+
+      .footer-info-text > span:hover .footer-tooltip {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-5px);
+      }
+
+      .footer-info-text i {
+        margin-right: 8px;
+      }
+
+      .header-divider,
+      .footer-divider {
+        width: 1px;
+        height: 20px;
+        background-color: rgba(var(--cb), 0.4);
+        margin: 0 10px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .random-text-container {
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        left: 0;
+        margin-top: 35px;
+        opacity: 0;
+        text-align: center;
+        z-index: 2;
+      }
+      .random-text {
+        font-size: 24px;
+        color: rgba(var(--cb), 0.8);
+      }
+      .random-text > span {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(-5px);
+        transition: 0.35s ease;
+        margin-right: 0.25em;
+      }
+      .random-text > span.word-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .clickable {
+        cursor: pointer;
+        transition: color 0.2s ease;
+      }
+      .clickable:hover {
+        color: var(--cb);
+      }
+
+      .splashlink {
+        position: relative;
+        display: inline-block;
+        color: rgba(120, 180, 255, 0.85);
+        text-decoration: none;
+        transform: translateY(0);
+        transition: 0.25s ease;
+      }
+
+      .splashlink::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 100%;
+        height: 2px;
+        background: rgba(140, 200, 255, 1);
+        opacity: 0;
+        transform: translateY(3px);
+        transition: opacity 0.25s ease, transform 0.25s ease;
+      }
+
+      .splashlink:hover {
+        color: rgba(140, 200, 255, 1);
+        transform: translateY(-2px);
+      }
+
+      .splashlink:hover::after {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 60px;
+        }
+        .header-info-container {
+          top: 20px;
+        }
+        .footer-info-container {
+          bottom: 20px;
+        }
+        .footer-tooltip {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="initial-overlay" id="initial-overlay"></div>
+    <div id="vanta-bg"></div>
+    <div class="vanta-overlay"></div>
+
+    <div class="header-info-container" id="header-info-container">
+      <p class="header-info-text" id="header-info-text"></p>
+    </div>
+
+    <div class="content-container">
+      <h1>
+        <span class="vapor-text" id="vapor-text">
+          <span class="v-char" id="v-char">V</span
+          ><span class="a-char" id="a-char">A</span
+          ><span class="p-char" id="p-char">P</span
+          ><span class="o-char" id="o-char">O</span
+          ><span class="r-char" id="r-char">R</span>
+        </span>
+        <span class="v4-text" id="v4-text">v4</span>
+      </h1>
+    </div>
+
+    <div class="random-text-container" id="random-text-container">
+      <p class="random-text" id="random-text"></p>
+    </div>
+
+    <div class="footer-info-container" id="footer-info-container">
+      <p class="footer-info-text" style="margin-bottom: 5px">
+        <span>
+          <span
+            id="vortex-link"
+            class="clickable"
+            style="text-decoration: underline"
+          >
+            <div class="footer-tooltip"></div>
+          </span>
+        </span>
+      </p>
+
+      <p class="footer-info-text" id="footer-info-text"></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@dev/build/three.core.min.js"></script>
+    <script src="/script/vantafog.min.js"></script>
+    <script>
+      const VERSION = "v4.4";
+      const splahses = [
+        "erahs htiw sdneirf",
+        "i love vaping on vapor",
+        "high score, low gpa",
+        "i put the fun in dysfunctional",
+        "now without fewer bugs",
+        "bring your own snacks",
+        "it just works",
+        "why did the road cross the chicken?",
+        "vapor v4 > vapor v3",
+        "splash responsibly",
+        "SHUT THE FRONT DOOR",
+        "Also try <a href='https://cherrion.top/' target='_blank' class='splashlink'>Cherri!</a>",
+        "VAPOR costs money to run",
+        "TURN OFF THE ADS BRO",
+        "w vapor ❤️‍🩹",
+        "w speed ❤️‍🩹",
+        "What's brown and sticky? A stick.",
+        "lights peed",
+        "67 677 767 767767 677777",
+        "&quot;im 12&quot;",
+        "v5 is releasing yesterday",
+        "R.I.P. Anastasia Jehorek 🕊️🙏", // please donate to help support her family ❤️: https://www.gofundme.com/f/in-loving-memory-of-anastasia-jehorek
+        "aw, you don't have 4000 games?",
+        "the f students are inventors",
+        "dsc.gg/vaporr <- JOIN",
+        "best game site oat",
+        "",
+      ];
+      const DATE_THEMES = {
+        "9/11": ["#444", "#444", "#444"],
+      };
+
+      let is24HourFormat = false;
+      let hasRevealed = false;
+
+      function cssVarToInt(varName) {
+        const hex = getComputedStyle(document.documentElement)
+          .getPropertyValue(varName)
+          .trim();
+        return hex.match(/^#([0-9a-f]{3}){1,2}$/i)
+          ? parseInt(hex.replace("#", "0x"))
+          : 0x000000;
+      }
+
+      function updateHeaderInfoDisplay() {
+        const textEl = document.getElementById("header-info-text");
+        const now = new Date();
+
+        const time = now.toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: !is24HourFormat,
+        });
+
+        const month = now.toLocaleDateString("en-US", { month: "short" });
+        const day = now.toLocaleDateString("en-US", { day: "numeric" }) + ",";
+        const year = now.toLocaleDateString("en-US", { year: "numeric" });
+
+        const mmdd = `${now.getMonth() + 1}/${now.getDate()}`;
+        const mmddyyyy = `${mmdd}/${now.getFullYear()}`;
+        const theme = DATE_THEMES[mmddyyyy] || DATE_THEMES[mmdd];
+
+        let dateHtml;
+        if (theme && theme.length >= 3) {
+          dateHtml = `<span style="color: ${theme[0]}">${month}</span> <span style="color: ${theme[1]}">${day}</span> <span style="color: ${theme[2]}">${year}</span>`;
+        } else {
+          dateHtml = `<span>${month} ${day} ${year}</span>`;
+        }
+
+        textEl.innerHTML = `<span id="time-toggle" class="clickable">${time}</span><span><div class="header-divider"></div></span>${dateHtml}`;
+
+        document.getElementById("time-toggle").onclick = () => {
+          is24HourFormat = !is24HourFormat;
+          updateHeaderInfoDisplay();
+        };
+      }
+
+      function populateFooterInfo() {
+        const textEl = document.getElementById("footer-info-text");
+
+        textEl.innerHTML = `<span style="color: rgba(var(--cb),0.8);">
+  <div class="footer-tooltip">
+    This build of VAPOR is running in a <b>static environment</b>.<br><br>
+    Some features may be limited, especially Browse.
+  </div>
+  Static Version
+</span><div class="footer-divider"></div><span id="version-link" class="clickable"><div class="footer-tooltip">Click to open changelog</div>${VERSION}</span><span><div class="footer-divider"></div></span><span id="discord-link" class="clickable"><div class="footer-tooltip">Join the Discord for new links, updates, and exclusive content!</div><i class="ri-discord-fill"></i>Discord</span>`;
+
+        document.getElementById("version-link").onclick = () =>
+          window.open("/asset/changelog.txt", "_blank");
+        document.getElementById("discord-link").onclick = () =>
+          window.open("https://discord.gg/cD926JG5Re", "_blank");
+
+        document.getElementById("vortex-link").onclick = () =>
+          window.open("https://vtx.chat", "_blank");
+      }
+
+      function animateRandomText() {
+        const forcedSplash = splahses.find((s) => s.startsWith("!!"));
+        let splashText = forcedSplash
+          ? forcedSplash.replace(/^!!/, "")
+          : splahses[Math.floor(Math.random() * splahses.length)];
+
+        const el = document.getElementById("random-text");
+        const container = document.getElementById("random-text-container");
+        el.innerHTML = "";
+
+        const words = splashText.split(/\s+(?![^<]*>)/g);
+
+        words.forEach((word) => {
+          if (word.trim().length > 0) {
+            const span = document.createElement("span");
+            span.innerHTML = word;
+            el.appendChild(span);
+          }
+        });
+
+        container.style.opacity = 1;
+        container.classList.add("visible");
+
+        el.querySelectorAll("span").forEach((span, i) => {
+          setTimeout(() => span.classList.add("word-visible"), i * 80);
+        });
+      }
+
+      function startRevealMwahha() {
+        if (hasRevealed) return;
+        hasRevealed = true;
+
+        document.getElementById("initial-overlay").classList.add("fade-out");
+
+        ["r-char", "o-char", "p-char", "a-char", "v-char"].forEach((id, i) =>
+          setTimeout(
+            () => document.getElementById(id).classList.add("visible"),
+            300 + i * 50
+          )
+        );
+
+        setTimeout(() => {
+          document.getElementById("v4-text").classList.add("visible");
+          document
+            .getElementById("header-info-container")
+            .classList.add("info-visible");
+          document
+            .getElementById("footer-info-container")
+            .classList.add("info-visible");
+
+          animateRandomText();
+
+          try {
+            if (typeof VANTA !== "undefined") {
+              VANTA.FOG({
+                el: "#vanta-bg",
+                highlightColor: cssVarToInt("--primary"),
+                midtoneColor: cssVarToInt("--primary"),
+                lowlightColor: cssVarToInt("--bg"),
+                baseColor: cssVarToInt("--button-bg"),
+                blurFactor: 0.8,
+                speed: 2,
+                zoom: 0.3,
+              });
+              document.getElementById("vanta-bg").style.opacity = 1;
+            }
+          } catch (e) {
+            console.error("vanta.js fog failed to load:", e);
+          }
+        }, 450);
+      }
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        populateFooterInfo();
+        updateHeaderInfoDisplay();
+
+        setTimeout(() => {
+          if (!hasRevealed) {
+            startRevealMwahha();
+          }
+        }, 3000);
+
+        window.onload = () => {
+          setTimeout(startRevealMwahha, 200);
+        };
+      });
+    </script>
+  </body>
+</html>
