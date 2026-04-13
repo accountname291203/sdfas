@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="/cfg.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/style/all.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+    <script src="/script/theme.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/monokai.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.css"
+    />
+
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-PPE9RTDYDG"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-PPE9RTDYDG");
+    </script>
+  </head>
+  <body>
+    <div class="backdrop" id="backdrop"></div>
+    <div class="messages-container" id="messages-container">
+      <div id="start-screen">
+        <p
+          style="
+            color: rgba(var(--cb), 0.2);
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            font-size: 18px;
+          "
+        >
+          Type a request to begin.
+        </p>
+      </div>
+    </div>
+
+    <button
+      id="scroll-to-bottom-btn"
+      class="ri-arrow-down-line"
+      aria-label="Scroll to bottom"
+    ></button>
+
+    <div class="input-bar-container">
+      <div class="input-bar-content">
+        <div class="dropdown-wrapper" id="model-dropdown-wrapper">
+          <button class="fixed-model-button" id="model-dropdown-toggle">
+            <i class="ri-robot-2-line" id="current-model-icon"></i>
+          </button>
+
+          <div class="dropdown-options" id="model-dropdown">
+            <div
+              class="option selected"
+              data-model="auto"
+              style="padding-top: 8px; padding-bottom: 8px"
+            >
+              <i class="ri-robot-2-fill"></i>
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  line-height: 1.2;
+                "
+              >
+                <span style="font-size: 15px">Automatic</span>
+                <span
+                  style="
+                    font-size: 12px;
+                    opacity: 0.5;
+                    margin-top: 2px;
+                    font-weight: 400;
+                  "
+                  >Choose for me</span
+                >
+              </div>
+            </div>
+            <div class="model-divider"></div>
+            <div class="option" data-model="gemini">
+              <i class="ri-gemini-fill"></i> <span>Gemini 3 Flash</span>
+            </div>
+            <div class="option" data-model="claude">
+              <i class="ri-claude-fill"></i> <span>Claude 4.5 Haiku</span>
+            </div>
+            <div class="option" data-model="gpt20b">
+              <i class="ri-openai-fill"></i> <span>GPT-OSS (faster)</span>
+            </div>
+            <div class="option" data-model="gpt120b">
+              <i class="ri-openai-fill"></i> <span>GPT-oss (powerful)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-bar">
+          <!--<i class="ri-sparkling-2-line"></i>-->
+          <input
+            type="text"
+            placeholder="Type a message..."
+            id="message-input"
+            autocomplete="off"
+          />
+          <button class="send-button-inline" id="send-button">
+            <i class="ri-upload-line"></i>
+          </button>
+        </div>
+
+        <div class="dropdown-wrapper" id="personality-dropdown-wrapper">
+          <button class="fixed-model-button" id="personality-select-button">
+            <i class="ri-speak-line model-icon"></i>
+          </button>
+
+          <div
+            class="dropdown-options personality-panel right-aligned"
+            id="personality-dropdown"
+          >
+            <div class="personality-header">Customize VAPOR AI:</div>
+            <textarea
+              id="personality-textarea"
+              placeholder="e.g. Speak like a pirate, be extremely concise, etc..."
+            ></textarea>
+            <div
+              class="personality-footer"
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-top: 10px;
+              "
+            >
+              <span id="save-status">Changes saved</span>
+              <button id="save-personality-btn" class="save-btn">
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-texmath/texmath.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
