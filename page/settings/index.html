@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="/cfg.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style/all.css" />
+    <script src="/script/theme.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-PPE9RTDYDG"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-PPE9RTDYDG");
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="sidebar">
+        <div class="sidebar-nav">
+          <div class="menu-item active" data-target="about">
+            <i class="ri-dashboard-3-line"></i> Overview
+          </div>
+
+          <div class="menu-item" data-target="customize">
+            <i class="ri-paint-brush-line"></i> Themes
+            <span class="sidebar-tag">UPDATED</span>
+          </div>
+          <div class="menu-item" data-target="partners">
+            <i class="ri-heart-line"></i> Partners
+          </div>
+
+          <div class="menu-item" data-target="cloak">
+            <i class="ri-spy-line"></i> Cloaking
+          </div>
+          <div class="menu-item" data-target="defaults">
+            <i class="ri-settings-5-line"></i> Config
+          </div>
+
+          <div class="menu-item" data-target="advertisements">
+            <i class="ri-shield-flash-line"></i> Ads
+          </div>
+          <div class="menu-item" data-target="data">
+            <i class="ri-save-3-line"></i> Data
+          </div>
+        </div>
+
+        <div class="sidebar-xtrabox">
+          <h3>
+            <i class="ri-discord-fill" style="font-size: 20px"></i> Join the
+            Discord
+          </h3>
+          <p>Weekly links, update notices, announcements, and more.</p>
+          <button class="discord-button">
+            Join Server <i class="ri-external-link-line"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="content about active">
+        <div class="card">
+          <h1 class="fancy">
+            <i class="ri-dashboard-3-line"></i> About VAPOR Static
+          </h1>
+          <p>
+            VAPOR Static is a custom version of VAPOR built to run on serverless
+            environments.<br /><br />
+            <b><i class="ri-error-warning-line"></i> Notice:</b> VAPOR Static is
+            currently in Beta. Report bugs in the Discord.
+          </p>
+          <h2><i class="ri-group-line"></i> Team</h2>
+          <ul class="credits-list">
+            <li>
+              <strong class="fancy">technonyte</strong
+              ><span>Owner + Developer</span>
+            </li>
+            <li>
+              <strong class="fancy">Evicly</strong
+              ><span>Co-owner + Developer</span>
+            </li>
+          </ul>
+
+          <h2><i class="ri-settings-4-line"></i> Games</h2>
+          <ul class="credits-list">
+            <li><strong>gn-math.dev</strong><span>breadbb</span></li>
+            <li><strong>truffled.lol</strong><span>bog.lat</span></li>
+            <li><strong>Ultimate Game Stash</strong><span>bubblefan</span></li>
+            <li><strong>Selenite</strong><span>skysthelimit.dev</span></li>
+            <li><strong>gn-ports</strong><span>gn-math.dev</span></li>
+            <li>
+              <strong>NowGG</strong><span>nowgg.fun / frogiesarcade.win</span>
+            </li>
+          </ul>
+          <h2><i class="ri-settings-4-line"></i> Features</h2>
+          <ul class="credits-list">
+            <li><strong>hvtrs / x8r</strong><span>Scramjet (Browse)</span></li>
+            <li>
+              <strong>YouTube / Twitch</strong><span>Watch Providers</span>
+            </li>
+            <li>
+              <strong>github.com/ambr0sial/nova</strong
+              ><span>Movie Sources</span>
+            </li>
+            <li>
+              <strong>TIDAL / Soundcloud</strong><span>Music Sources</span>
+            </li>
+          </ul>
+          <h2><i class="ri-code-s-slash-line"></i> Libraries</h2>
+          <ul class="credits-list">
+            <li><strong>Google AI Studio API</strong><span>AI Chat</span></li>
+            <li><strong>Vanta.js</strong><span>Background Effect</span></li>
+            <li><strong>Veteraning</strong><span>cool</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="content defaults">
+        <div class="card">
+          <h1 class="fancy"><i class="ri-settings-5-line"></i> Config</h1>
+
+          <div class="setting-section">
+            <h2 class="section-label">Music Service</h2>
+            <p class="section-desc">
+              Select which service Listen opens by default.
+            </p>
+            <div class="options-grid">
+              <div class="option music-opt" data-music="tidal">
+                <i class="ri-hd-line"></i> TIDAL (default)
+              </div>
+              <div class="option music-opt" data-music="soundcloud">
+                <i class="ri-soundcloud-line"></i> SoundCloud
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-section">
+            <h2 class="section-label">Streaming Service</h2>
+            <p class="section-desc">
+              Select which service Watch opens by default.
+            </p>
+            <div class="options-grid">
+              <div class="option watch-opt" data-watch="youtube">
+                <i class="ri-youtube-line"></i> YouTube (default)
+              </div>
+              <div class="option watch-opt" data-watch="twitch">
+                <i class="ri-twitch-line"></i> Twitch
+              </div>
+              <div class="option watch-opt" data-watch="movies">
+                <i class="ri-movie-line"></i> Movies
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--<div class="content prx">
+        <div class="card">
+          <h1 class="fancy">Proxy</h1>
+          <h2><i class="ri-server-line"></i> W1sp Server</h2>
+          <div class="option wisp-opt" data-wisp="">
+            Default Server
+          </div>
+        </div>
+      </div>-->
+
+      <div class="content cloak">
+        <div class="card">
+          <h1 class="fancy"><i class="ri-spy-line"></i> Cloaking</h1>
+          <p>Make VAPOR appear to be something else!</p>
+          <div class="option cloak-tab-opt" data-cloak-tab="vapor">
+            <span class="option-icon-wrapper"
+              ><img src="/asset/logo-icon.png" alt="V"
+            /></span>
+            VAPOR (Default)
+          </div>
+          <div class="option cloak-tab-opt" data-cloak-tab="google">
+            <span class="option-icon-wrapper"
+              ><img src="https://www.google.com/favicon.ico" alt="G"
+            /></span>
+            Google
+          </div>
+          <div class="option cloak-tab-opt" data-cloak-tab="khanacademy">
+            <span class="option-icon-wrapper"
+              ><img src="https://www.khanacademy.org/favicon.ico" alt="KA"
+            /></span>
+            Khan Academy
+          </div>
+          <div class="option cloak-tab-opt" data-cloak-tab="desmos">
+            <span class="option-icon-wrapper"
+              ><img src="https://www.desmos.com/favicon.ico" alt="D"
+            /></span>
+            Desmos
+          </div>
+          <div class="option cloak-tab-opt" data-cloak-tab="quizlet">
+            <span class="option-icon-wrapper"
+              ><img src="https://quizlet.com/favicon.ico" alt="Q"
+            /></span>
+            Quizlet
+          </div>
+          <div class="option cloak-tab-opt" data-cloak-tab="wikipedia">
+            <span class="option-icon-wrapper"
+              ><img src="https://en.wikipedia.org/favicon.ico" alt="W"
+            /></span>
+            Wikipedia
+          </div>
+          <div class="option cloak-tab-opt" data-cloak-tab="classroom">
+            <span class="option-icon-wrapper"
+              ><img
+                src="https://upload.wikimedia.org/wikipedia/commons/1/19/Google_Classroom_Logo.svg"
+                alt="GC"
+            /></span>
+            Google Classroom
+          </div>
+          <div class="option cloak-tab-opt" data-cloak-tab="clever">
+            <span class="option-icon-wrapper"
+              ><img
+                src="https://s2.googleusercontent.com/s2/favicons?domain=clever.com&sz=16"
+                alt="C"
+            /></span>
+            Clever
+          </div>
+          <div class="option cloak-tab-opt" data-cloak-tab="canvas">
+            <span class="option-icon-wrapper"
+              ><img src="https://www.instructure.com/favicon.ico" alt="C"
+            /></span>
+            Canvas
+          </div>
+          <div class="option cloak-tab-opt" data-cloak-tab="schoology">
+            <span class="option-icon-wrapper"
+              ><img
+                src="https://s2.googleusercontent.com/s2/favicons?domain=schoology.com&sz=16"
+                alt="S"
+            /></span>
+            Schoology
+          </div>
+        </div>
+
+        <div class="card">
+          <h1 class="fancy">Auto Cloaking</h1>
+          <p>Opens VAPOR in a cloaked tab on load.</p>
+          <div class="option cloak-auto-opt" data-cloak-auto="disabled">
+            <i class="ri-close-circle-line"></i> Disabled
+          </div>
+          <div class="option cloak-auto-opt" data-cloak-auto="about:blank">
+            <i class="ri-file-line"></i> about:blank
+          </div>
+          <div class="option cloak-auto-opt" data-cloak-auto="blob">
+            <i class="ri-database-line"></i> blob:
+          </div>
+        </div>
+
+        <div class="card">
+          <h1 class="fancy">Close Prevention</h1>
+          <p>Prevents teachers from closing your tab.</p>
+          <div class="toggle-container">
+            <div style="display: flex; flex-direction: column; gap: 2px">
+              <span style="color: var(--text-color); font-weight: 600"
+                >Close Prevention</span
+              >
+            </div>
+            <div class="toggle" id="closePreventToggle">
+              <div class="toggle-slider"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content advertisements">
+        <div class="card">
+          <h1 class="fancy"><i class="ri-shield-flash-line"></i> Ads</h1>
+          <p>
+            Running VAPOR's servers is expensive, and buying new domains for
+            <b>link drops</b> costs money every time we get blocked.<br /><br />
+            We hate ads too, but they're needed to keep VAPOR free & unbl*cked
+            for everyone.<br /><br />
+            If you encounter any inappropriate / adult ads, join the Discord and
+            tell us ASAP.
+          </p>
+
+          <div class="toggle-container">
+            <div style="display: flex; flex-direction: column; gap: 2px">
+              <span style="color: var(--text-color); font-weight: 600"
+                >Enable Ads</span
+              >
+              <span style="font-size: 14px; color: rgba(var(--alpha-base), 0.5)"
+                >Covers the bills so VAPOR stays free.</span
+              >
+            </div>
+            <div class="toggle" id="adsToggle">
+              <div class="toggle-slider"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content customize">
+        <div class="card">
+          <h1 class="fancy"><i class="ri-paint-brush-line"></i> Themes</h1>
+          <p>Select a style for VAPOR.</p>
+          <div class="theme-row theme-opt" data-theme="vapor">
+            <div
+              class="theme-swatch"
+              style="background: #0a111d; color: #a4b8db"
+            >
+              Aa
+              <div class="swatch-loader">
+                <div class="spinner" style="border-top-color: #418ac6"></div>
+              </div>
+            </div>
+            <div class="theme-info">VAPOR</div>
+          </div>
+          <div class="theme-row theme-opt" data-theme="light">
+            <div
+              class="theme-swatch"
+              style="
+                background: #f4f7fa;
+                color: #418ac6;
+                border: 1px solid #cbd5e1;
+              "
+            >
+              Aa
+              <div class="swatch-loader">
+                <div class="spinner" style="border-top-color: #418ac6"></div>
+              </div>
+            </div>
+            <div class="theme-info">VAPOR Light</div>
+          </div>
+          <div class="theme-row theme-opt" data-theme="nordic">
+            <div
+              class="theme-swatch"
+              style="background: #24292e; color: #88c0d0"
+            >
+              Aa
+              <div class="swatch-loader">
+                <div class="spinner" style="border-top-color: #418ac6"></div>
+              </div>
+            </div>
+            <div class="theme-info">Nordic</div>
+          </div>
+          <div class="theme-row theme-opt" data-theme="ocean">
+            <div
+              class="theme-swatch"
+              style="background: #01161e; color: #94d2bd"
+            >
+              Aa
+              <div class="swatch-loader">
+                <div class="spinner" style="border-top-color: #418ac6"></div>
+              </div>
+            </div>
+            <div class="theme-info">Ocean</div>
+          </div>
+          <div class="theme-row theme-opt" data-theme="forest">
+            <div
+              class="theme-swatch"
+              style="background: #081c15; color: #95d5b2"
+            >
+              Aa
+              <div class="swatch-loader">
+                <div class="spinner" style="border-top-color: #418ac6"></div>
+              </div>
+            </div>
+            <div class="theme-info">Forest</div>
+          </div>
+          <div class="theme-row theme-opt" data-theme="lavender">
+            <div
+              class="theme-swatch"
+              style="background: #13111c; color: #dcd6f7"
+            >
+              Aa
+              <div class="swatch-loader">
+                <div class="spinner" style="border-top-color: #418ac6"></div>
+              </div>
+            </div>
+            <div class="theme-info">Lavender</div>
+          </div>
+          <div class="theme-row theme-opt" data-theme="amethyst">
+            <div
+              class="theme-swatch"
+              style="background: #1e0f28; color: #af64f0"
+            >
+              Aa
+              <div class="swatch-loader">
+                <div class="spinner" style="border-top-color: #418ac6"></div>
+              </div>
+            </div>
+            <div class="theme-info">Amethyst</div>
+          </div>
+          <div class="theme-row theme-opt" data-theme="nebula">
+            <div
+              class="theme-swatch"
+              style="background: #0b0e14; color: #7b2cff"
+            >
+              Aa
+              <div class="swatch-loader">
+                <div class="spinner" style="border-top-color: #418ac6"></div>
+              </div>
+            </div>
+            <div class="theme-info">Nebula</div>
+          </div>
+          <div class="theme-row theme-opt" data-theme="sakura">
+            <div
+              class="theme-swatch"
+              style="background: #1c1418; color: #ffb7c5"
+            >
+              Aa
+              <div class="swatch-loader">
+                <div class="spinner" style="border-top-color: #418ac6"></div>
+              </div>
+            </div>
+            <div class="theme-info">Sakura</div>
+          </div>
+          <div class="theme-row theme-opt" data-theme="rose">
+            <div
+              class="theme-swatch"
+              style="background: #1a0a0f; color: #e5383b"
+            >
+              Aa
+              <div class="swatch-loader">
+                <div class="spinner" style="border-top-color: #418ac6"></div>
+              </div>
+            </div>
+            <div class="theme-info">Rose</div>
+          </div>
+          <div class="theme-row theme-opt" data-theme="sunset">
+            <div
+              class="theme-swatch"
+              style="background: #1a0f0f; color: #ffb4a2"
+            >
+              Aa
+              <div class="swatch-loader">
+                <div class="spinner" style="border-top-color: #418ac6"></div>
+              </div>
+            </div>
+            <div class="theme-info">Sunset</div>
+          </div>
+          <div class="theme-row theme-opt" data-theme="earth">
+            <div
+              class="theme-swatch"
+              style="background: #1b1a17; color: #e6ccb2"
+            >
+              Aa
+              <div class="swatch-loader">
+                <div class="spinner" style="border-top-color: #418ac6"></div>
+              </div>
+            </div>
+            <div class="theme-info">Earth</div>
+          </div>
+          <div class="theme-row theme-opt" data-theme="midnight">
+            <div
+              class="theme-swatch"
+              style="background: #0a0a0a; color: #ffffff"
+            >
+              Aa
+              <div class="swatch-loader">
+                <div class="spinner" style="border-top-color: #418ac6"></div>
+              </div>
+            </div>
+            <div class="theme-info">Midnight</div>
+          </div>
+          <div class="theme-row theme-opt" data-theme="amoled">
+            <div
+              class="theme-swatch"
+              style="
+                background: #000000;
+                color: #ffffff;
+                border: 1px solid #333;
+              "
+            >
+              Aa
+              <div class="swatch-loader">
+                <div class="spinner" style="border-top-color: #418ac6"></div>
+              </div>
+            </div>
+            <div class="theme-info">AMOLED</div>
+          </div>
+        </div>
+        <div class="card" id="customThemeCard">
+          <h1 class="fancy">
+            <i class="ri-palette-line"></i> Custom Theme
+            <span class="card-title-tag">Beta</span>
+          </h1>
+          <p>Create a theme from a single color.</p>
+
+          <div class="color-picker-container">
+            <div class="color-pad" id="colorPad">
+              <div class="color-pad-bg" id="colorPadBg"></div>
+              <div class="color-pad-white"></div>
+              <div class="color-pad-black"></div>
+              <div class="color-thumb" id="padThumb"></div>
+            </div>
+
+            <div class="hue-slider" id="hueSlider">
+              <div class="hue-thumb" id="hueThumb"></div>
+            </div>
+          </div>
+
+          <div class="theme-mode-toggles">
+            <div class="theme-mode-btn active" data-mode="dark">
+              <i class="ri-moon-line"></i> Dark
+            </div>
+            <div class="theme-mode-btn" data-mode="light">
+              <i class="ri-sun-line"></i> Light
+            </div>
+          </div>
+
+          <button class="apply-custom-btn" id="applyCustomThemeBtn">
+            <i class="ri-upload-line"></i> Apply Theme!
+          </button>
+        </div>
+        <div class="card">
+          <h1 class="fancy">Typography</h1>
+          <p>
+            Configure custom fonts.<br /><b>Note:</b> Certain fonts may not fit
+            elements well.
+          </p>
+          <h2 style="font-size: 14.5px">
+            <i class="ri-font-size"></i> Custom Font
+          </h2>
+          <p style="font-size: 14.5px">Enter any Google Font name here.</p>
+          <input
+            type="text"
+            id="fontInput"
+            class="font-field"
+            placeholder="e.g. Roboto"
+          />
+        </div>
+        <div class="card">
+          <h1 class="fancy">Alt Themes</h1>
+          <p>Experimental styles for VAPOR. Elements may not fit properly.</p>
+          <style>
+            .alt-theme-opt[data-theme="matrix"] .theme-swatch::before {
+              content: "";
+              display: block;
+              position: absolute;
+              top: 0;
+              left: 0;
+              bottom: 0;
+              right: 0;
+              background: linear-gradient(
+                  rgba(18, 16, 16, 0) 50%,
+                  rgba(0, 0, 0, 0.25) 50%
+                ),
+                linear-gradient(
+                  90deg,
+                  rgba(255, 0, 0, 0.06),
+                  rgba(0, 255, 0, 0.02),
+                  rgba(0, 0, 255, 0.06)
+                );
+              z-index: 9999;
+              background-size: 100% 2px, 3px 100%;
+              pointer-events: none;
+            }
+            .alt-theme-opt[data-theme="matrix"] .theme-swatch {
+              position: relative;
+              overflow: hidden;
+            }
+          </style>
+          <div class="theme-row alt-theme-opt" data-theme="matrix">
+            <div
+              class="theme-swatch"
+              style="
+                background: #000;
+                color: #00ff41;
+                border: 1px solid #003b00;
+                font-family: 'Courier New', monospace;
+              "
+            >
+              01
+              <div class="swatch-loader"><div class="spinner"></div></div>
+            </div>
+            <div class="theme-info">The Matrix</div>
+          </div>
+          <div class="theme-row alt-theme-opt" data-theme="matrix-no-overlay">
+            <div
+              class="theme-swatch"
+              style="
+                background: #000;
+                color: #00ff41;
+                border: 1px solid #003b00;
+                font-family: 'Courier New', monospace;
+              "
+            >
+              01
+              <div class="swatch-loader"><div class="spinner"></div></div>
+            </div>
+            <div class="theme-info">The Matrix (No Overlay)</div>
+          </div>
+          <div class="theme-row alt-theme-opt" data-theme="vortex">
+            <div
+              class="theme-swatch"
+              style="
+                background: linear-gradient(-45deg, #000000, #4d0069);
+                color: #ffffff;
+                border: 1px solid #bb00ff;
+                text-shadow: 0 0 5px #ffffff, 0 0 10px #bb00ff, 0 0 20px #bb00ff;
+              "
+            >
+              Aa
+              <div class="swatch-loader"><div class="spinner"></div></div>
+            </div>
+            <div class="theme-info">Vortex</div>
+          </div>
+          <div class="theme-row alt-theme-opt" data-theme="frogies">
+            <div
+              class="theme-swatch"
+              style="
+                background: #0e0e0e;
+                color: #00ff9d;
+                border: 3px solid #1a1a1a;
+              "
+            >
+              Aa
+              <div class="swatch-loader"><div class="spinner"></div></div>
+            </div>
+            <div class="theme-info">Frogie's Arcade</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content data">
+        <div class="card">
+          <h1 class="fancy"><i class="ri-save-3-line"></i> Data Management</h1>
+          <p>
+            Import or export data from VAPOR. Useful for transfering
+            settings/playlists to other links or devices.
+          </p>
+
+          <h2><i class="ri-upload-line"></i> Export</h2>
+          <div class="option" id="exportBtn">
+            <i class="ri-download-line"></i> Export a VPR file
+          </div>
+
+          <h2><i class="ri-download-line"></i> Import</h2>
+          <div class="option" id="importTrigger">
+            <i class="ri-upload-line"></i> Import your VPR file
+          </div>
+          <input
+            type="file"
+            id="importInput"
+            style="display: none"
+            accept=".vpr"
+          />
+        </div>
+      </div>
+
+      <div class="content partners">
+        <div class="card">
+          <h1 class="fancy"><i class="ri-heart-line"></i> Partners</h1>
+          <p>
+            The amazing projects and communities supporting VAPOR. Check our
+            their sites below.
+          </p>
+          <div class="partners-list">
+            <a
+              href="https://vtx.chat"
+              target="_blank"
+              class="partner-row vortex"
+            >
+              <div class="partner-logo">
+                <img src="/asset/partners/vortex.png" alt="Titan" />
+              </div>
+              <div class="partner-info">
+                <span class="partner-name fancy">Vortex</span>
+                <span class="partner-desc"
+                  >A modern and secure messaging platform for schools.</span
+                >
+              </div>
+              <i class="ri-arrow-right-up-line partner-link-icon"></i>
+            </a>
+            <a href="https://cherrion.top" target="_blank" class="partner-row">
+              <div class="partner-logo">
+                <img src="/asset/partners/cherri.webp" alt="Titan" />
+              </div>
+              <div class="partner-info">
+                <span class="partner-name fancy">Cherri V2</span>
+                <span class="partner-desc"
+                  >Clean, customizable, and now in pink!</span
+                >
+              </div>
+              <i class="ri-arrow-right-up-line partner-link-icon"></i>
+            </a>
+            <a
+              href="https://infamous.qzz.io/"
+              target="_blank"
+              class="partner-row"
+            >
+              <div class="partner-logo">
+                <img src="/asset/partners/infamous.webp" alt="Titan" />
+              </div>
+              <div class="partner-info">
+                <span class="partner-name fancy">Infamous Network</span>
+                <span class="partner-desc"
+                  >Best UBG site. 500+ games, cloud gaming, unblocked music
+                  player + movies, site chatroom, and more.</span
+                >
+              </div>
+              <i class="ri-arrow-right-up-line partner-link-icon"></i>
+            </a>
+            <a
+              href="https://discord.gg/AsvnjQq2nW"
+              target="_blank"
+              class="partner-row"
+            >
+              <div class="partner-logo">
+                <img src="/asset/partners/velara.webp" alt="Titan" />
+              </div>
+              <div class="partner-info">
+                <span class="partner-name fancy">Velara</span>
+                <span class="partner-desc"
+                  >Join us today and expirence the world of Velara!</span
+                >
+              </div>
+              <i class="ri-arrow-right-up-line partner-link-icon"></i>
+            </a>
+            <a href="https://splash.best" target="_blank" class="partner-row">
+              <div class="partner-logo">
+                <img src="/asset/partners/splash.webp" alt="Titan" />
+              </div>
+              <div class="partner-info">
+                <span class="partner-name fancy">SPLASH</span>
+                <span class="partner-desc"
+                  >Secure Proxy for Live Audiovisual SHell</span
+                >
+              </div>
+              <i class="ri-arrow-right-up-line partner-link-icon"></i>
+            </a>
+            <a href="https://endis.rest" target="_blank" class="partner-row">
+              <div class="partner-logo">
+                <img src="/asset/partners/endis.webp" alt="Titan" />
+              </div>
+              <div class="partner-info">
+                <span class="partner-name fancy">Endis</span>
+                <span class="partner-desc"
+                  >Next-gen browser inside your browser.</span
+                >
+              </div>
+              <i class="ri-arrow-right-up-line partner-link-icon"></i>
+            </a>
+            <a href="https://wilway.today" target="_blank" class="partner-row">
+              <div class="partner-logo">
+                <img src="/asset/partners/wilway.webp" alt="Titan" />
+              </div>
+              <div class="partner-info">
+                <span class="partner-name fancy">Wilway</span>
+                <span class="partner-desc">Play your way.</span>
+              </div>
+              <i class="ri-arrow-right-up-line partner-link-icon"></i>
+            </a>
+            <a href="https://luna.loan" target="_blank" class="partner-row">
+              <div class="partner-logo">
+                <img src="/asset/partners/luna.webp" alt="Titan" />
+              </div>
+              <div class="partner-info">
+                <span class="partner-name fancy">LUNA</span>
+                <span class="partner-desc"
+                  >The best cloudmoon byp.-.ss out there!</span
+                >
+              </div>
+              <i class="ri-arrow-right-up-line partner-link-icon"></i>
+            </a>
+            <a href="https://ckv.best" target="_blank" class="partner-row">
+              <div class="partner-logo">
+                <img src="/asset/partners/ckv.webp" alt="Titan" />
+              </div>
+              <div class="partner-info">
+                <span class="partner-name fancy">CHICKEN KINGS VAULT</span>
+                <span class="partner-desc"
+                  >The Best Unbl.-.cked Games website to play all of your
+                  favourite games</span
+                >
+              </div>
+              <i class="ri-arrow-right-up-line partner-link-icon"></i>
+            </a>
+          </div>
+          <p
+            style="
+              margin-top: 20px;
+              font-size: 18px;
+              color: rgba(var(--cb), 0.6);
+              margin-bottom: 0px;
+            "
+          >
+            <i class="ri-meteor-fill"></i> Want to share your project?<br />DM
+            <b>_technonyte</b> on Discord.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div id="notif">Updated setting. <i>Refresh the page to apply.</i></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
