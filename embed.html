@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="/cfg.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gateway</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+      :root {
+        --bg: #0a111d;
+        --primary: #a4b8db;
+        --secondary-text: #8e9bb1;
+      }
+
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: var(--bg);
+      }
+
+      #vanta-bg {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        transition: opacity 0.2s ease-out;
+      }
+
+      #loading-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        position: relative;
+        z-index: 1;
+        transition: opacity 0.2s ease-out, transform 0.3s ease-in-out;
+      }
+
+      #loading-container.error-state {
+        transform: translateY(-20px);
+      }
+
+      #loading-text {
+        font-family: "Inter", sans-serif;
+        font-size: 2rem;
+        color: var(--primary);
+        user-select: none;
+      }
+
+      #error-description {
+        font-family: "Inter", sans-serif;
+        font-size: 0.9rem;
+        color: var(--secondary-text);
+        margin-top: 10px;
+        opacity: 0;
+        transition: opacity 0.3s ease-in 0.1s;
+      }
+
+      #error-description.visible {
+        opacity: 1;
+      }
+
+      #loading-text span {
+        opacity: 1;
+        animation-name: waveOpacity;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+      }
+
+      @keyframes waveOpacity {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.2;
+        }
+      }
+
+      #gateway-iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 0.2s ease-in;
+        visibility: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="vanta-bg"></div>
+    <div id="loading-container">
+      <div id="loading-text">loading...</div>
+      <div id="error-description">
+        an error occured when<br />starting the pr%xy.
+      </div>
+    </div>
+    <iframe id="gateway-iframe"></iframe>
+
+    <script src="/vpr/baremux/index.js"></script>
+    <script src="/vpr/scram/scramjet.all.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.fog.min.js"></script>
+
+    <script>
+      "use strict";
+
+      VANTA.FOG({
+        el: "#vanta-bg",
+        highlightColor: "#2b384d",
+        midtoneColor: "#0a111d",
+        lowlightColor: "#444f60",
+        baseColor: "#0a111d",
+        blurFactor: 0.8,
+        speed: 1.8,
+        zoom: 0.35,
+      });
+
+      // attention everyone: scramjet headed your way
+      const connection = new BareMux.BareMuxConnection(
+        "/vpr/baremux/worker.js"
+      );
+      const defaultWispUrl = `wss://${location.hostname}/wisp/`;
+      const wispUrl = localStorage.getItem("wispServer") || defaultWispUrl;
+      connection.setTransport("/vpr/libcurl/index.mjs", [
+        {
+          websocket: wispUrl,
+        },
+      ]);
+      const { ScramjetController } = $scramjetLoadController();
+      const scramjet = new ScramjetController({
+        files: {
+          all: "/vpr/scram/scramjet.all.js",
+          wasm: "/vpr/scram/scramjet.wasm.wasm",
+          sync: "/vpr/scram/scramjet.sync.js",
+        },
+        prefix: "/vpr/go/",
+      });
+      scramjet.init();
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const iframe = document.getElementById("gateway-iframe");
+        const loadingContainer = document.getElementById("loading-container");
+        const vantaBg = document.getElementById("vanta-bg");
+        const loadingTextContainer = document.getElementById("loading-text");
+        const errorDescription = document.getElementById("error-description");
+        const text = loadingTextContainer.textContent;
+        loadingTextContainer.textContent = "";
+        const characters = text.split("");
+        characters.forEach((char, index) => {
+          const span = document.createElement("span");
+          span.textContent = char === " " ? "\u00A0" : char;
+          span.style.animationDelay = `${
+            (characters.length - 1 - index) * 0.1
+          }s`;
+          loadingTextContainer.appendChild(span);
+        });
+        function showErrorState() {
+          loadingTextContainer.innerHTML = "error.";
+          loadingContainer.classList.add("error-state");
+          errorDescription.classList.add("visible");
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        if (urlParams.get("testerror") === "true") {
+          setTimeout(showErrorState, 100);
+          return;
+        }
+        let gatewayTimeout;
+        let attempts = 0;
+        const MAX_ATTEMPTS = 2;
+        const TIMEOUT_DURATION = 5000;
+        function startGatewayLoad(url) {
+          if (!url) return;
+          attempts++;
+          iframe.src = scramjet.encodeUrl(url);
+
+          clearTimeout(gatewayTimeout);
+
+          gatewayTimeout = setTimeout(() => {
+            if (attempts < MAX_ATTEMPTS) {
+              startGatewayLoad(url);
+            } else {
+              showErrorState();
+            }
+          }, TIMEOUT_DURATION);
+        }
+        let urlToGateway = urlParams.get("url");
+
+        if (urlToGateway) {
+          if (
+            !urlToGateway.startsWith("http://") &&
+            !urlToGateway.startsWith("https://")
+          ) {
+            urlToGateway = "https://" + urlToGateway;
+          }
+          startGatewayLoad(urlToGateway.trim());
+        }
+
+        iframe.addEventListener("load", () => {
+          clearTimeout(gatewayTimeout);
+          loadingContainer.style.opacity = 0;
+          vantaBg.style.opacity = 0;
+          setTimeout(() => {
+            loadingContainer.style.display = "none";
+            vantaBg.style.display = "none";
+            iframe.style.visibility = "visible";
+            iframe.style.opacity = 1;
+          }, 200);
+        });
+      });
+    </script>
+  </body>
+</html>
