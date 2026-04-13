@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="/cfg.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="style.css" rel="stylesheet" />
+    <link href="/style/all.css" rel="stylesheet" />
+    <script src="/script/theme.js"></script>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-PPE9RTDYDG"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-PPE9RTDYDG");
+    </script>
+    <link href="style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="wrapper" id="wrapper">
+      <div class="box left">
+        <div class="left-content-wrapper">
+          <div class="left-inner">
+            <div class="cover-art" id="coverArt">
+              <div class="blur-overlay"></div>
+              <i class="ri-music-2-fill" id="musicIcon"></i>
+            </div>
+
+            <div class="song-info-wrapper">
+              <div class="song-title-row">
+                <div class="eq-visualizer" id="eqVisualizer">
+                  <div class="eq-bar"></div>
+                  <div class="eq-bar"></div>
+                  <div class="eq-bar"></div>
+                  <div class="eq-bar"></div>
+                  <div class="eq-bar"></div>
+                </div>
+                <div id="songTitle">Not Playing</div>
+                <i
+                  class="ri-heart-line"
+                  id="nowPlayingHeart"
+                  style="
+                    margin-left: auto;
+                    font-size: 1.3rem;
+                    opacity: 0.3;
+                    pointer-events: none;
+                    transition: all 0.2s ease;
+                  "
+                ></i>
+              </div>
+              <div class="song-artist" id="songArtist">
+                Try searching on the right
+              </div>
+            </div>
+          </div>
+
+          <div class="progress-wrapper">
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value="0"
+              class="progress-bar"
+              id="progressBar"
+            />
+            <div class="progress-times">
+              <span id="currentTime"></span>
+              <span id="duration"></span>
+            </div>
+          </div>
+
+          <div class="player-controls-wrapper">
+            <div class="controls">
+              <button
+                style="display: none"
+                id="repeatButton"
+                class="side-button"
+              >
+                <i class="ri-repeat-line"></i>
+              </button>
+              <div class="main-controls">
+                <button id="prevButton"><i class="ri-rewind-fill"></i></button>
+                <button class="play-button" id="playPauseButton">
+                  <i class="ri-play-circle-fill"></i>
+                </button>
+                <button id="nextButton"><i class="ri-speed-fill"></i></button>
+              </div>
+              <button style="display: none" id="muteButton" class="side-button">
+                <i class="ri-volume-up-line"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="lyrics-view" id="lyricsContainer">
+          <div class="lyrics-content-spacer"></div>
+          <div class="lyrics-scroll-container" id="lyricsContent">
+            <div class="lyrics-status-container">
+              <i class="ri-music-2-line"></i>
+              <span>Play a song to see lyrics</span>
+            </div>
+          </div>
+          <div class="lyrics-content-spacer"></div>
+        </div>
+
+        <button id="loopButton" title="Toggle Loop">
+          <i class="ri-repeat-line"></i>
+        </button>
+        <button id="lyricsButton"><i class="ri-chat-quote-line"></i></button>
+      </div>
+
+      <div class="box right" id="rightBox">
+        <div class="right-inner-wrapper">
+          <div id="searchView" class="view-section view-active">
+            <div class="right-search">
+              <i class="ri-search-line"></i>
+              <input
+                type="text"
+                placeholder="Search any song"
+                id="searchInput"
+              />
+              <i
+                class="ri-list-ordered-2 action-icon"
+                id="openQueueBtn"
+                title="Queue"
+              ></i>
+              <i
+                class="ri-folders-line action-icon"
+                id="openPlaylistsBtn"
+                title="Playlists"
+              ></i>
+              <i
+                class="ri-soundcloud-line action-icon"
+                id="serviceButtonIcon"
+                title="Switch Service"
+              ></i>
+            </div>
+            <div class="search-results" id="searchResults">
+              <div
+                class="lyrics-status-container pulse-vibe"
+                style="pointer-events: none"
+              >
+                <i class="ri-search-line"></i>
+                <span
+                  >Try searching
+                  <script>
+                    (function () {
+                      const list = [
+                        '"pop"',
+                        '"hip hop"',
+                        '"rap"',
+                        '"r&b"',
+                        '"rock"',
+                        '"country"',
+                        '"jazz"',
+                        '"metal"',
+                        '"electronic"',
+                        '"indie"',
+                      ];
+                      document.currentScript.replaceWith(
+                        list[Math.floor(Math.random() * list.length)]
+                      );
+                    })();
+                  </script>
+                </span>
+              </div>
+              <div
+                id="loadingMore"
+                style="
+                  text-align: center;
+                  color: rgba(255, 255, 255, 0.5);
+                  padding: 10px 0;
+                  display: none;
+                "
+              ></div>
+            </div>
+          </div>
+
+          <div id="queueView" class="view-section view-hidden">
+            <div class="playlist-header">
+              <div class="playlist-header-left" id="backToSearchFromQueueBtn">
+                <i class="ri-arrow-left-line"></i> Back to search
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center">
+                <span
+                  style="
+                    font-weight: 600;
+                    font-size: 1rem;
+                    color: var(--text-color);
+                  "
+                  >Queue</span
+                >
+                <i
+                  class="ri-lock-line playlist-edit-toggle"
+                  id="lockQueueBtn"
+                  title="Rearrange Locked"
+                ></i>
+              </div>
+            </div>
+            <div class="search-results" id="queueListContainer"></div>
+          </div>
+
+          <div id="playlistListView" class="view-section view-hidden">
+            <div class="playlist-header">
+              <div class="playlist-header-left" id="backToSearchBtn">
+                <i class="ri-arrow-left-line"></i> Back to search
+              </div>
+            </div>
+            <div class="search-results" id="playlistListContainer">
+              <div class="result-item" id="createPlaylistBtn">
+                <div class="result-art">
+                  <i class="ri-add-line"></i>
+                </div>
+                <div class="result-text">
+                  <div class="result-title">Create Playlist</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="playlistDetailView" class="view-section view-hidden">
+            <div class="playlist-header">
+              <div class="playlist-header-left" id="backToPlaylistsBtn">
+                <i class="ri-arrow-left-line"></i> Back to playlists
+              </div>
+              <div style="display: flex; gap: 10px; align-items: center">
+                <i
+                  class="ri-shuffle-line playlist-edit-toggle"
+                  id="shufflePlaylistBtn"
+                  title="Shuffle Play"
+                ></i>
+                <i
+                  class="ri-lock-line playlist-edit-toggle"
+                  id="lockPlaylistBtn"
+                  title="Rearrange Locked"
+                ></i>
+                <i
+                  class="ri-pencil-line playlist-edit-toggle"
+                  id="toggleEditModeBtn"
+                  title="Edit Playlist"
+                ></i>
+              </div>
+            </div>
+            <div class="search-results" id="playlistEditorContainer">
+              <div class="playlist-meta">
+                <div class="playlist-view-mode" id="playlistViewMode">
+                  <div class="playlist-title-row">
+                    <div
+                      class="playlist-title-display"
+                      id="playlistTitleDisplay"
+                    ></div>
+                    <div class="playlist-color-dot" id="playlistColorDot"></div>
+                  </div>
+                  <div
+                    class="playlist-desc-display"
+                    id="playlistDescDisplay"
+                  ></div>
+                </div>
+
+                <div class="playlist-edit-mode" id="playlistEditMode">
+                  <input
+                    type="text"
+                    class="playlist-input"
+                    id="playlistTitleInput"
+                    placeholder="Playlist Name"
+                  />
+                  <input
+                    type="text"
+                    class="playlist-input"
+                    id="playlistDescInput"
+                    placeholder="Description (Optional)"
+                  />
+                  <div
+                    class="color-picker-grid"
+                    id="colorPickerContainer"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="result-item" id="addSongToPlaylistBtn">
+                <div class="result-art">
+                  <i class="ri-add-line"></i>
+                </div>
+                <div class="result-text">
+                  <div class="result-title">Add Song</div>
+                </div>
+              </div>
+
+              <div id="playlistTracksList"></div>
+            </div>
+          </div>
+
+          <div id="playlistAddSongView" class="view-section view-hidden">
+            <div class="playlist-header">
+              <div class="playlist-header-left" id="backToEditorBtn">
+                <i class="ri-arrow-left-line"></i> Back to playlist
+              </div>
+              <i
+                class="ri-check-line playlist-edit-toggle"
+                id="finishAddingSongsBtn"
+                title="Done"
+                style="display: none; color: var(--accent)"
+              ></i>
+            </div>
+            <div class="right-search">
+              <i class="ri-search-line"></i>
+              <input
+                type="text"
+                placeholder="Search tracks..."
+                id="playlistSearchInput"
+              />
+              <i
+                class="ri-soundcloud-line action-icon"
+                id="playlistServiceBtn"
+                title="Switch Service"
+              ></i>
+            </div>
+            <div class="search-results" id="playlistSearchResults">
+              <div
+                class="lyrics-status-container pulse-vibe"
+                style="pointer-events: none"
+              >
+                <i class="ri-search-eye-line"></i>
+                <span>Try searching "Dih"!</span>
+              </div>
+              <div
+                id="playlistLoadingMore"
+                style="
+                  text-align: center;
+                  color: rgba(255, 255, 255, 0.5);
+                  padding: 10px 0;
+                  display: none;
+                "
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="modalOverlay">
+      <div id="failModal">
+        <div id="modalContent">Playback is not supported for this track.</div>
+        <div id="modalButtonContainer">
+          <button id="modalButton">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="dropdownOverlay"></div>
+    <div class="custom-dropdown" id="serviceDropdown">
+      <div
+        class="dropdown-option"
+        data-service="soundcloud"
+        data-icon="ri-soundcloud-line"
+      >
+        <span
+          >SoundCloud
+          <span class="label" style="color: rgba(255, 255, 255, 0.5)"
+            >Faster</span
+          ></span
+        >
+        <i class="ri-soundcloud-line"></i>
+      </div>
+      <div class="dropdown-option" data-service="tidal" data-icon="ri-hd-line">
+        <span
+          >Tidal
+          <span class="label" style="color: rgba(255, 255, 255, 0.5)"
+            >More Songs</span
+          ></span
+        >
+        <i class="ri-hd-line"></i>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
