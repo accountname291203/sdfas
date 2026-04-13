@@ -1,0 +1,94 @@
+v4.4
+- New AI source (yes, paid for)
+- AI models:
+  * Claude 4.5 Haiku
+  * Gemini 3 Flash
+  * GPT-OSS (low & high)
+  * Automatic
+- Added personality system
+- AI has knowledge about VAPOR
+
+- Play updates:
+  * Added 3 new gamelists:
+    - TGLSC
+    - Seraph
+    - 3kh0 (currently bugged)
+  * ~4,000 total games (10 gamelists)
+  * Redesigned gamelist source dropdown (less cluttered)
+
+- Music updates:
+  * Added favorites system
+  * Added queue system
+  * Added playlist shuffle
+  * Re-added repeat button
+  * Fixed music source switching bug
+  * Fixed TIDAL playback
+  * Tweaked equalizer balancing
+  * Audio and images properly served through server
+
+- Settings & UI updates:
+  * Fully redesigned Settings UI
+  * Added Light Mode
+  * Added custom theme system
+  * Reworked color system for custom themes
+  * Added partners to Partners menu
+  * Replaced weather with date on Home
+  * Added new splash texts
+  * Updated various icons
+
+- Switched back to a more reliable ad provider
+
+v4.3
+Updated Play
+  * 7 game sources
+  * 3371 total games
+Browse now has cloaking built-in
+Listen now properly proxies audio playback
+Navigation can now be opened with touch
+Equalizer in Listen is more accurate
+More splash texts
+Fixed Settings theme updating
+Added hover effect to side navigation items
+Fixed AI note
+Probably fixed nowgg games?
+Fixed Vortex alt-theme font
+Added changelog to welcome popup
+
+v4.2.5
+Music now has Playlists & Lyrics
+Download your VAPOR config in Settings
+Probably/possibly/maybily fixed nowgg to use browser engine
+
+v4.2.0
+Browser should be fixed
+Ads are now toggleable in settings
+YouTube is more widely unrestricted
+    [enabled Scrape & made it default]
+VAPOR v4 has reached 1M views
+    Thank you so much for the support!
+Fixed game proxy embedding
+
+v4.1.0
+- Added new games: bonk.io, Melon Sandbox, defly.io (testing out direct games)
+- Switched ad providers to AdCash
+- Added game request form at https://forms.gle/GrNwtWZqVodLjKXY7
+- Games page polishing
+- Added TV Shows
+- Switched Movies/TV Show providers
+
+v4.0.3
+- Navigation is more intuitive
+- Potentially fixed mobile cut-off issues
+- Added BASIC mobile support for some pages
+
+v4.0.2
+- Added Bookmarks to Browse
+- Improved disclaimer for Movies
+- Renamed "Talk" to "AI" to prevent confusion
+
+v4.0.1
+- Polishing homepage
+- Added ads
+
+v4.0.0
+- Initialize VAPOR v4
